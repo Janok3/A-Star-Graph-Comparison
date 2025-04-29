@@ -1,4 +1,4 @@
-LinkedListBranchTrap20       
+LinkedListBranchTrap      
 20                           
 0   0                        
 10  0
