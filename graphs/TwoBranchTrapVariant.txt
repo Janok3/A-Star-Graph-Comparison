@@ -41,4 +41,3 @@ TwoBranchTrapVariant
 16 17 5
 17 18 5
 18 19 5
-10 19 5
