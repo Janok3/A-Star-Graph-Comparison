@@ -111,50 +111,11 @@ int main() {
         int goal = graph.goalNode;
         const auto& coords = graph.coordinates;
         
-        // Heuristic 1: Euclidean distance
-        auto heuristic1 = [&](int node) {
+        // Heuristic: Euclidean distance
+        auto heuristic = [&](int node) {
             double dx = coords[node].first - coords[goal].first;
             double dy = coords[node].second - coords[goal].second;
             return sqrt(dx*dx + dy*dy);
-        };
-
-        // Heuristic 2: Euclidean + penalties for both X and Y coordinates
-        auto heuristic2 = [&](int node) {
-            double h = heuristic1(node);
-            
-            // Get coordinates
-            double nodeX = coords[node].first;
-            double nodeY = coords[node].second;
-            double goalX = coords[goal].first;
-            double goalY = coords[goal].second;
-            
-            // X-coordinate penalty
-            double xPenalty = 0.0;
-            if (nodeX < 50.0) {
-                xPenalty = (50.0 - nodeX) / 6.5;
-                if (xPenalty < 0) xPenalty = 0;
-            }
-            
-            // Y-coordinate penalty
-            double yPenalty = 0.0;
-            // Determine if node is in different half from goal in Y-axis
-            double midY = 10.0; // Approximate middle Y-coordinate
-            bool nodeInUpperHalf = (nodeY >= midY);
-            bool goalInUpperHalf = (goalY >= midY);
-            
-            if (nodeInUpperHalf != goalInUpperHalf) {
-                // Apply penalty based on distance from midpoint
-                yPenalty = fabs(nodeY - midY) / 5.0;
-            }
-            
-            return h + xPenalty + yPenalty;
-        };
-
-        // Heuristic 3: Manhattan distance
-        auto heuristic3 = [&](int node) {
-            double dx = fabs(coords[node].first - coords[goal].first);
-            double dy = fabs(coords[node].second - coords[goal].second);
-            return dx + dy;
         };
 
         // A* search algorithm (function template to accept heuristic as a parameter)
@@ -241,13 +202,7 @@ int main() {
         };
 
         cout << "Using Euclidean distance heuristic:" << endl;
-        runAStar(heuristic1);
-
-        /* cout << "Using modified (slightly overestimating) heuristic:" << endl;
-        runAStar(heuristic2);
-        
-        cout << "Using Manhattan distance heuristic:" << endl;
-        runAStar(heuristic3); */
+        runAStar(heuristic);
         
         cout << "----------------------------------------" << endl;
     }

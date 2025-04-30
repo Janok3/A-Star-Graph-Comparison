@@ -172,10 +172,7 @@ class GraphVisualizer:
             print(f"Visualizing graph {i+1}/{len(self.graph_files)}: {filename}")
             graph_data = self.read_graph(filename)
             self.visualize_graph(graph_data, filename)
-        
-        # Remove the problematic line that's causing the error
-        # plt.get_current_fig_manager().window.state('normal')
-        
+
         # Try to arrange windows in a more compatible way
         try:
             # Try to tile the windows if possible
@@ -194,6 +191,6 @@ class GraphVisualizer:
         plt.show()
 
 if __name__ == "__main__":
-    graphs_folder = "goodGraphs"
+    graphs_folder = "graphs"
     visualizer = GraphVisualizer(graphs_folder)
     visualizer.run()
